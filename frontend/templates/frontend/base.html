@@ -21,9 +21,19 @@
   <link rel="stylesheet" href="{% static 'frontend/css/style.css' %}">
 
   <script src="{% static 'frontend/js/clipboard.min.js.download' %}"></script>
+
+  <script src="{% static 'frontend/js/jquery.js' %}"></script>
+  <script src="{% static 'frontend/js/axios.js' %}"></script>
+  
 </head>
 
 <body>
+  <form hidden id="backendVar">
+    {% csrf_token %}
+    <input name="cartQueryUrl" value="{% url 'frontend:cart_query' %}" />
+    <input name="cartUrl" value="{% url 'frontend:cart' %}" />
+    <input name="loginUrl" value="{% url 'frontend:login' %}" />
+  </form>
   <!-- ========== HEADER ========== -->
   {% include "frontend/widgets/header.html" %}
   <!-- ========== END HEADER ========== -->
@@ -39,7 +49,8 @@
 
   <!-- ========== SECONDARY CONTENTS ========== -->
   <!-- Sign Up -->
-  <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
+  {% if not user.is_authenticated %}
+   <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <!-- Header -->
@@ -99,13 +110,13 @@
             </div>
             <!-- End Heading -->
 
-            <form class="js-validate needs-validation" novalidate="">
+            <form class="login-validate needs-validation" novalidate="">
+              {% csrf_token %}
               <!-- Form -->
               <div class="mb-3">
-                <label class="form-label" for="signupModalFormLoginEmail">Your email</label>
-                <input type="email" class="form-control form-control-lg" name="email" id="signupModalFormLoginEmail"
-                  placeholder="email@site.com" aria-label="email@site.com" required="">
-                <span class="invalid-feedback">Please enter a valid email address.</span>
+                <label class="form-label" for="signupModalFormLoginEmail">Your username</label>
+                {{ login_form.username }}
+                <span class="invalid-feedback">Please enter a valid username.</span>
               </div>
               <!-- End Form -->
 
@@ -120,9 +131,7 @@
                      }" data-hs-show-animation-link-group="idForm">Forgot Password?</a>
                 </div>
 
-                <input type="password" class="form-control form-control-lg" name="password"
-                  id="signupModalFormLoginPassword" placeholder="8+ characters required"
-                  aria-label="8+ characters required" required="" minlength="8">
+                {{ login_form.password }}
                 <span class="invalid-feedback">Please enter a valid password.</span>
               </div>
               <!-- End Form -->
@@ -130,7 +139,9 @@
               <div class="d-grid mb-3">
                 <button type="submit" class="btn btn-primary form-control-lg">Log in</button>
               </div>
+              <p class="backend-feedback" style="color: var(--bs-red);"></p>
             </form>
+            
           </div>
           <!-- End Log in with Modal -->
 
@@ -308,6 +319,8 @@
       </div>
     </div>
   </div>
+  {% endif %}
+  
   <!-- Go To -->
   <a class="js-go-to go-to position-fixed animated hs-go-to-prevent-event fadeOutDown" href="javascript:;"
     style="right: 2rem; bottom: 2rem;" data-hs-go-to-options="{
@@ -329,7 +342,9 @@
   <!-- Offcanvas Search -->
   {% include "frontend/widgets/search.html" %}
   <!-- Offcanvas Cart -->
-  {% include "frontend/widgets/cart.html" %}
+  {% if user.is_authenticated %}
+    {% include "frontend/widgets/cart.html" %}
+  {% endif %}
   <!-- ========== END SECONDARY CONTENTS ========== -->
 
   <!-- JS Implementing Plugins -->
@@ -338,6 +353,7 @@
   <script src="{% static 'frontend/js/theme.min.js.download' %}"></script>
   <!-- JS Plugins Init. -->
   <script src="{% static 'frontend/js/style.js' %}"></script>
+  <script src="{% static 'frontend/js/additional.js' %}"></script>
 </body>
 
 </html>

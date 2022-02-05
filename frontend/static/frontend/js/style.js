@@ -15,12 +15,14 @@
 
       // INITIALIZATION OF BOOTSTRAP VALIDATION
       // =======================================================
-      HSBsValidation.init('.js-validate', {
-        onSubmit: data => {
-          data.event.preventDefault()
-          alert('Submited')
-        }
-      })
+      // HSBsValidation.init('.js-validate', {
+      //   onSubmit: data => {
+      //     data.event.preventDefault()
+      //     let email = document.querySelector(".login-email")
+      //     alert(`${email.value}`)
+      //   }
+      // })
+      
 
 
       // INITIALIZATION OF BOOTSTRAP DROPDOWN
@@ -40,6 +42,9 @@
         watchSlidesProgress: true,
         history: false,
         slidesPerView: 3,
+        autoplay: {
+          delay: 4000
+        },
         spaceBetween: 15,
         on: {
           beforeInit: (swiper) => {
@@ -62,7 +67,9 @@
       });
 
       var swiper = new Swiper('.js-swiper-shop-classic-hero',{
-        autoplay: true,
+        autoplay: {
+          delay: 4000
+        },
         loop: true,
         navigation: {
           nextEl: '.js-swiper-shop-classic-hero-button-next',
