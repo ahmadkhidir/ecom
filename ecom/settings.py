@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-x1=v(-0vw!kse&js44lrm&yj7_1zk6n+2%tjuexzb#)^bgwrl&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "vanguard-ecommerce.herokuapp.com"
+]
 
 
 # Application definition
