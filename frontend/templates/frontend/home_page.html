@@ -96,7 +96,7 @@
     <div class="container content-space-2 content-space-lg-3" style="margin-bottom: 0!important;">
         <!-- Heading -->
         <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
-            <h2>The better way to shop with Front top-products</h2>
+            <h2>The better way to shop with Vang top-products</h2>
         </div>
         <!-- End Heading -->
 
@@ -212,18 +212,11 @@
         <!-- End Row -->
 
         <div class="text-center">
-            <a class="btn btn-outline-primary btn-transition rounded-pill" href="#">View all products</a>
+            <a class="btn btn-outline-primary btn-transition rounded-pill" href="{% url 'frontend:product' %}">View all products</a>
         </div>
     </div>
     <!-- End Card Grid -->
 
-    <!-- Subscribe -->
-    {% include "frontend/widgets/subscribe.html" %}
-    <!-- End Subscribe -->
-
-    <!-- Clients -->
-    {% include "frontend/widgets/clients.html" %}
-    <!-- End Clients -->
 </main>
 
 {% endblock content %}

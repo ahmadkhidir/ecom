@@ -10,7 +10,7 @@
   <!-- Title -->
   <title>Shop | Ecom</title>
   <!-- Favicon -->
-  <link rel="shortcut icon" href="">
+  <link rel="shortcut icon" href="{% static 'frontend/images/favicon.svg' %}">
   <!-- Font -->
   <link href="{% static 'frontend/css/css2.css' %}" rel="stylesheet">
   <!-- CSS Implementing Plugins -->
@@ -42,6 +42,16 @@
   {% block content %}
   {% endblock content %}
   <!-- ========== END MAIN CONTENT ========== -->
+
+  {% block hide_sub_content %}
+   <!-- Subscribe -->
+   {% include "frontend/widgets/subscribe.html" %}
+   <!-- End Subscribe -->
+
+   <!-- Clients -->
+   {% include "frontend/widgets/clients.html" %}
+   <!-- End Clients -->
+  {% endblock hide_sub_content %}
 
   <!-- ========== FOOTER ========== -->
   {% include "frontend/widgets/footer.html" %}

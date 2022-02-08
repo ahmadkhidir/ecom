@@ -4,7 +4,6 @@ from django.views import View
 from django.contrib.auth import login, authenticate
 from .models import Product, Category
 from .forms import LoginForm
-import json
 
 
 class HomeView(View):
@@ -20,7 +19,7 @@ class HomeView(View):
             "categories": categories,
             "login_form": login_form
         }
-        return render(request, "frontend/home.html", context)
+        return render(request, "frontend/home_page.html", context)
 
 
 def login_view(request):
@@ -68,4 +67,26 @@ def cart_query_view(request):
 
 class CartView(View):
     def get(self, request):
-        return HttpResponse("cart")
+        cart = request.user.cart_set.last()
+        context = {
+            "cart": cart
+        }
+        return render(request, "frontend/cart_page.html", context)
+
+
+class CheckoutView(View):
+    def get(self, request):
+        cart = request.user.cart_set.last()
+        context = {
+            "cart": cart
+        }
+        return render(request, "frontend/checkout_page.html", context)
+
+
+class ProductView(View):
+    def get(self, request):
+        products = Product.objects.all()
+        context = {
+            "products": products
+        }
+        return render(request, "frontend/product_page.html", context)

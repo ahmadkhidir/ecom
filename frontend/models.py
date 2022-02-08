@@ -49,6 +49,7 @@ class Product(models.Model):
         return ['']
 
 
+
 class Image(models.Model):
     name = models.ImageField(upload_to="images/")
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -74,11 +75,17 @@ class Cart(models.Model):
     is_purchased = models.BooleanField(default=False)
 
     def get_total_price(self):
-        return sum([p.get_sumed_price for p in self.cartitem_set])
+        return sum([p.get_sumed_price() for p in self.cartitem_set.all()])
 
     def is_empty(self):
         return False if self.cartitem_set.count else True
     
+    def get_all_items(self):
+        return self.cartitem_set.all()
+    
+    def get_item_count(self):
+        return self.cartitem_set.count()
+
     def __str__(self):
         return f"{self.user.username} (cart {self.id})"
 
@@ -89,7 +96,9 @@ class CartItem(models.Model):
     quantity = models.PositiveIntegerField(default=1)
 
     def get_sumed_price(self):
-        return self.product.price * self.quantity
+        return self.product.get_discount_price() * self.quantity
     
     def __str__(self):
         return f"Cart[{self.cart.id}] ({self.cart.user.username})"
+
+
