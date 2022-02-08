@@ -21,7 +21,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50)
     label = models.CharField(max_length=200)
     description = models.TextField(max_length=500)
-    price = models.DecimalField(decimal_places=2, max_digits=999999)
+    price = models.FloatField(decimal_places=2, max_digits=999999)
     discount = models.DecimalField(decimal_places=2, default=0, max_digits=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
